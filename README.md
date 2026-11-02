@@ -1,120 +1,96 @@
 # NewX Services – Inventory Management & Spare Parts Forecasting
 
-**Project Reference:** PM-PR-0027
-**Domain:** Inventory Management and Predictive Analytics
-
 ## Project Overview
 
-This project focuses on analysing historical vehicle service and invoice data from NewX Services to understand service-item patterns and support inventory planning.
+This project focuses on analysing historical vehicle service and invoice records to identify service activity patterns and explore forecasting approaches that can support inventory planning.
 
-The objective is to identify frequently recorded service items, analyse monthly invoice activity, explore demand patterns, and evaluate forecasting approaches that can support better inventory-related decisions.
+The project involves data cleaning, exploratory data analysis, monthly trend analysis, item-level frequency analysis, and forecasting model evaluation using Python and Machine Learning techniques.
 
-## Business Problem
-
-Vehicle service centres need to maintain sufficient spare parts and service items to meet customer requirements. Poor inventory planning can result in stock shortages, service delays, or unnecessary inventory costs.
-
-This project uses historical service and invoice records to identify recurring patterns and provide data-driven insights for inventory planning.
-
-## Business Objectives
+## Project Objectives
 
 * Analyse historical vehicle service and invoice records.
-* Identify frequently recorded service items.
-* Understand monthly invoice activity and trends.
-* Explore service-item demand patterns.
-* Apply and evaluate forecasting approaches.
-* Provide insights to support inventory planning.
+* Identify frequently recorded service-item descriptions.
+* Understand monthly service activity and trends.
+* Explore item-level record frequency for inventory planning.
+* Compare forecasting approaches and evaluate their performance.
 
 ## Dataset Description
 
-The dataset was retrieved from the NewX Services project database.
+* Total Records: 28,482
+* Unique Invoice-Line Descriptions: 495
+* Data Period: May 2017 – January 2019
+* Data Source: MySQL Database
 
-* **Total Records:** 28,482
-* **Total Columns:** 7
-* **Data Period:** May 2017 – January 2019
-* **Source Table:** `service_data`
+The dataset contains vehicle service and invoice-related information.
 
-### Dataset Columns
+## Technologies Used
 
-| Column                  | Description                                         |
-| ----------------------- | --------------------------------------------------- |
-| `invoice_date`          | Invoice date                                        |
-| `job_card_date`         | Vehicle service job card date                       |
-| `business_partner_name` | Customer or business partner identifier             |
-| `vehicle_no`            | Vehicle registration identifier                     |
-| `vehicle_model`         | Vehicle model                                       |
-| `current_km_reading`    | Vehicle kilometre reading                           |
-| `invoice_line_text`     | Item or service description recorded on the invoice |
-
-## Tools and Technologies
-
-* **Programming Language:** Python
-* **Database:** MySQL
-* **Libraries:** Pandas, NumPy
-* **Data Visualization:** Matplotlib, Seaborn
-* **Database Connectivity:** SQLAlchemy
-* **Machine Learning:** Scikit-learn
-* **Environment:** Jupyter Notebook
+* Python
+* SQL
+* MySQL
+* Jupyter Notebook
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-learn
+* SQLAlchemy
 
 ## Project Workflow
 
-1. **Database Connectivity:** Connected to the MySQL database and retrieved service records.
-2. **Data Understanding:** Examined dataset structure, data types, missing values, and duplicate records.
-3. **Data Cleaning:** Converted date and numeric columns, standardized item descriptions, and handled missing descriptions.
-4. **Exploratory Data Analysis:** Analysed service records, item frequencies, vehicle-related patterns, and monthly invoice activity.
-5. **Feature Preparation:** Prepared monthly time-based data for forecasting analysis.
-6. **Forecasting:** Applied a baseline approach and Linear Regression to analyse monthly invoice-line record trends.
-7. **Model Evaluation:** Compared forecasting predictions with actual monthly records using MAE and RMSE.
-8. **Business Insights:** Summarized frequently recorded items and provided recommendations for inventory planning.
+1. **Data Collection:** Retrieved vehicle service and invoice records from the MySQL database.
+2. **Data Cleaning:** Inspected missing values, data types, duplicate records, and prepared the dataset for analysis.
+3. **Exploratory Data Analysis:** Examined service trends, invoice records, vehicle models, and frequently recorded descriptions.
+4. **Trend Analysis:** Analysed monthly service activity and item-level record frequencies.
+5. **Feature Preparation:** Prepared monthly record-frequency data for forecasting.
+6. **Model Development:** Implemented and evaluated Linear Regression against a baseline forecasting approach.
+7. **Model Evaluation:** Compared model performance using MAE and RMSE.
+8. **Insights:** Summarised findings relevant to inventory planning.
 
-## Forecasting Evaluation
+## Key Findings
 
-Monthly invoice-line record frequency was used as the forecasting target.
+* Analysed 28,482 vehicle service and invoice records.
+* Identified 495 unique invoice-line descriptions.
+* ENGINE OIL, CHAIN LUBRICATION, and GENERAL SERVICE were among the frequently recorded descriptions.
+* December 2018 recorded the highest monthly frequency, with 2,260 records.
+* Selected 10 possible spare-part descriptions for item-level monthly analysis.
+* Linear Regression achieved better MAE than the baseline for 7 of the 10 selected item series.
 
-The forecasting approaches were evaluated on four test months from September to December 2018.
+### Forecasting Model Performance
 
 | Model             |    MAE |   RMSE |
 | ----------------- | -----: | -----: |
-| Baseline Model    | 451.75 | 484.97 |
-| Linear Regression | 261.57 | 289.66 |
+| Baseline          | 451.75 | 484.97 |
+| Linear Regression | 402.04 | 436.50 |
 
-The Linear Regression model achieved lower MAE and RMSE than the baseline model on the selected test period.
+Linear Regression achieved lower MAE and RMSE than the baseline for the overall monthly record-frequency series.
 
-These results indicate that the model performed better than the baseline for predicting monthly invoice-line record frequency on this test split.
+## Data Scope and Considerations
 
-## Key Insights
+The available dataset contains vehicle service and invoice records but does not include actual spare-parts quantities, stock levels, consumption records, or supplier lead times.
 
-* Historical invoice records provide useful information about frequently recorded service items.
-* Monthly invoice activity varies over time.
-* Item frequency analysis can help identify service items that appear more often in historical records.
-* Forecasting monthly invoice-line activity can provide an additional reference for inventory planning.
-* Historical trends can support data-driven discussions about item availability and planning.
+Therefore, invoice-line record frequency was used as a proxy for recorded service activity during the forecasting process. The resulting forecasts provide insights into historical service-item frequency patterns and can support preliminary inventory planning analysis.
 
-## Business Recommendations
+For more accurate spare-parts demand forecasting, future analysis could incorporate actual consumption quantities, inventory records, stock availability, and supplier lead-time information.
 
-* Monitor frequently recorded service items regularly.
-* Use historical invoice trends as one input for inventory planning.
-* Review item classifications with domain experts.
-* Maintain accurate item-level quantity and stock records.
-* Combine historical service activity with actual stock and consumption data for more reliable demand forecasting.
+## Future Improvements
 
-## Limitations
+* Incorporate actual spare-parts consumption and quantity data.
+* Integrate inventory and stock availability information.
+* Include supplier lead times and stockout history.
+* Explore additional forecasting techniques.
+* Validate models using a longer historical period.
 
-The available dataset does not contain explicit item quantity, stock-level, or actual consumption columns.
+## Project Structure
 
-Therefore, invoice-line record frequency is used as a proxy for recorded item demand. It should not be interpreted as the actual quantity of spare parts sold or consumed.
+* `NewX_Inventory_Management_Forecasting.ipynb` – Project implementation and analysis.
+* `README.md` – Project documentation.
+* `requirements.txt` – Required Python libraries.
 
-The forecasting results represent monthly invoice-line activity rather than actual spare-part quantity demand.
+## Author
 
-Future improvements could include integrating inventory transactions, item quantities, stock availability, and consumption records to develop more accurate spare-parts demand forecasts.
+**Sailaja Tholla**
 
-## Conclusion
+B.Tech – Computer Science and Engineering
 
-This project demonstrates how Python, SQL, exploratory data analysis, and forecasting techniques can be used to analyse historical vehicle service records.
 
-By identifying frequently recorded items and examining monthly invoice activity, the project provides useful insights that can support inventory planning and data-driven decision-making at vehicle service centres.
-
----
-
-**Project Type:** Client Project
-**Project Reference:** PM-PR-0027
-**Project Title:** NewX Services – Inventory Management & Spare Parts Forecasting
